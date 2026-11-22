@@ -7,15 +7,21 @@
  */
 import "server-only";
 import { getDb } from "@/server/db/client";
+import { DocumentRepository } from "@/server/repositories/document.repository";
 import { UserRepository } from "@/server/repositories/user.repository";
 import { AuthService } from "@/server/services/auth.service";
+import { DocumentService } from "@/server/services/document.service";
 
 export function getContainer() {
   const db = getDb();
   const userRepository = new UserRepository(db);
+  const documentRepository = new DocumentRepository(db);
+  const documentService = new DocumentService(documentRepository);
   return {
     db,
     userRepository,
+    documentRepository,
     authService: new AuthService(userRepository),
+    documentService,
   };
 }
