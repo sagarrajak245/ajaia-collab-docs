@@ -56,7 +56,8 @@ export function ShareButton({ documentId, isOwner }: { documentId: string; isOwn
     setError(null);
     try {
       await action();
-      await load();
+      // Only the share list changes after a mutation: one request, not three.
+      setShares(await api<DocumentShareDto[]>(`/api/documents/${documentId}/shares`));
       return true;
     } catch (e) {
       setError(errMsg(e));

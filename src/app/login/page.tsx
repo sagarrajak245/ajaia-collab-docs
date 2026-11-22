@@ -22,12 +22,12 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function onSubmit(e: FormEvent) {
-    e.preventDefault();
+  /** Signs in and redirects. Used by the form and by the one-click demo buttons. */
+  async function signIn(loginEmail: string, loginPassword: string) {
     setError(null);
     setLoading(true);
     try {
-      await api("/api/auth/login", { method: "POST", json: { email, password } });
+      await api("/api/auth/login", { method: "POST", json: { email: loginEmail, password: loginPassword } });
       // Only allow same-site relative redirects (prevents open-redirects via ?next=).
       const next = params.get("next");
       router.replace(next && next.startsWith("/") && !next.startsWith("//") ? next : "/documents");
@@ -36,6 +36,11 @@ function LoginForm() {
       setError(err instanceof ApiClientError ? err.message : "Login failed");
       setLoading(false);
     }
+  }
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    void signIn(email, password);
   }
 
   return (
@@ -87,18 +92,20 @@ function LoginForm() {
 
       <div className="mt-6 rounded-xl border border-dashed border-slate-300 p-4">
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">
-          Demo accounts · password <code className="text-slate-700">{DEMO_PASSWORD}</code>
+          Demo accounts (one click to sign in) · password <code className="text-slate-700">{DEMO_PASSWORD}</code>
         </p>
         <div className="flex gap-2">
           {DEMO_ACCOUNTS.map((a) => (
             <button
               key={a.email}
               type="button"
+              disabled={loading}
               onClick={() => {
                 setEmail(a.email);
                 setPassword(DEMO_PASSWORD);
+                void signIn(a.email, DEMO_PASSWORD); // one click = signed in
               }}
-              className="flex-1 rounded-md border border-slate-200 bg-surface px-2 py-1.5 text-sm text-slate-700 hover:bg-canvas"
+              className="flex-1 rounded-md border border-slate-200 bg-surface px-2 py-1.5 text-sm text-slate-700 hover:bg-canvas disabled:opacity-60"
             >
               {a.name}
             </button>
