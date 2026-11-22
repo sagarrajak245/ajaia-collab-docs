@@ -1,7 +1,7 @@
 # Submission: Ajaia AI-Native Assessment
 
 **Candidate:** Sagar Rajak
-**Live product:** https://ajaia-collab-docs.vercel.app
+**Live product:** https://ajaia-collab-docs-eight.vercel.app
 **Source:** https://github.com/sagarrajak245/ajaia-collab-docs
 **Walkthrough video:** see `VIDEO_URL.txt`
 
