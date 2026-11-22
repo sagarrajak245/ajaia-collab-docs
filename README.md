@@ -1,11 +1,81 @@
-# Ajaia Docs: Lightweight Collaborative Document Editor
+<div align="center">
 
-A focused, Google-Docs-inspired editor: create and format documents, import files, share them with viewer/editor roles, and collaborate with presence, comments, version history and export.
+# 📝 Ajaia Docs
 
-**Live app:** https://ajaia-collab-docs-eight.vercel.app
-**Repository:** https://github.com/sagarrajak245/ajaia-collab-docs
+*A lightweight, Google-Docs-style collaborative editor.*
 
-## Documentation
+**Write, format, import, share, comment, version and export documents, with live presence of who else is in the doc.**
+
+![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%7C%20Storage%20%7C%20Realtime-3ECF8E?logo=supabase&logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle-ORM-C5F74F?logo=drizzle&logoColor=black)
+![Tests](https://img.shields.io/badge/tests-80%20passing-brightgreen)
+![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000000?logo=vercel&logoColor=white)
+
+[**▶ Try it live**](https://ajaia-collab-docs-eight.vercel.app) · [How it works](#-how-it-works) · [Run locally](#-run-locally) · [Architecture](ARCHITECTURE.md) · [AI workflow](AI_WORKFLOW.md)
+
+</div>
+
+## 🔑 Demo accounts
+
+Password for all: **`password123`**. The login page also has one-click buttons.
+
+| Account | What to try |
+|---|---|
+| `alice@ajaia.test` | Owns *Welcome to Ajaia Docs*. Create, share, import |
+| `bob@ajaia.test` | Has the welcome doc as **Editor**. Edit it alongside Alice |
+| `carol@ajaia.test` | Share something with her as **Viewer**. Read-only, can comment |
+
+> 💡 Open a second browser (or a private window) as another user to see **live presence avatars**.
+
+## ✨ What you get
+
+| | |
+|---|---|
+| ✍️ **Rich text editor** | Bold, italic, underline, H1–H3, bullet and numbered lists, **tables**, **text and highlight colour**, undo/redo |
+| 💾 **Autosave you can trust** | Debounced autosave with a *Saving… / Saved* indicator. A stale save gets **409 Conflict** instead of overwriting someone's work |
+| 📤 **File import** | `.txt`, `.md`, `.docx` (≤ 2 MB) become editable documents. Uploads go **straight to storage via a signed URL**; the server checks the **real file type from its bytes** |
+| 👥 **Sharing with roles** | Share by email as **Viewer** or **Editor**; change or revoke. Separate *My documents* and *Shared with me* lists |
+| 🟢 **Live presence** | See who is **viewing** or **editing** the document right now (WebSocket, Supabase Realtime) |
+| 💬 **Comments** | Comment on selected text, reply, resolve. Viewers can comment too |
+| 🕓 **Version history** | Automatic + manual snapshots, preview, **non-destructive restore** |
+| 📄 **Export** | Markdown download and PDF (print-to-PDF) |
+| 🔐 **Secure by default** | httpOnly JWT cookie, bcrypt, timing-safe login, RLS on every table, one server-side permission policy |
+
+## 🧠 How it works
+
+```mermaid
+flowchart LR
+    B["🖥️ Browser<br/>Next.js + TipTap"] -- "/api/* + session cookie" --> S["▲ Next.js server<br/>interceptor → services → repositories"]
+    S -- "Drizzle" --> DB[("🟢 Postgres<br/>RLS on")]
+    B -- "signed URL upload" --> ST[("🗄️ Storage<br/>private bucket")]
+    S -- "download + sniff bytes" --> ST
+    B <-->|"WebSocket presence"| RT(("📡 Realtime"))
+```
+
+| Piece | In one line |
+|---|---|
+| **Saving** | `UPDATE … WHERE version = expected`: one atomic statement. 0 rows changed → `409`, the user is asked to reload |
+| **Uploading** | Server signs a short-lived URL → browser uploads directly → server downloads, sniffs magic bytes, converts to the editor format |
+| **Permissions** | `owner / editor / viewer` × actions in one policy module. No access → `404`, not allowed → `403` |
+| **Presence** | Each open doc joins channel `doc:<id>` and broadcasts *viewing* / *editing* |
+
+Full design, diagrams and trade-offs: **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+
+## 🧰 Tech stack
+
+| Layer | Choice |
+|---|---|
+| App | Next.js 15 (App Router), React 19, TypeScript strict, Tailwind CSS v4 |
+| Editor | TipTap v3 (ProseMirror), content stored as JSON |
+| Data | Supabase Postgres via Drizzle ORM, versioned migrations |
+| Files | Supabase Storage (private bucket, signed URLs) |
+| Realtime | Supabase Realtime Presence |
+| Validation | zod v4 |
+| Tests | Vitest + PGlite (real Postgres in-process) |
+
+## 📚 Documentation
 
 | Doc | What's inside |
 |---|---|
@@ -16,41 +86,7 @@ A focused, Google-Docs-inspired editor: create and format documents, import file
 | [docs/DECISIONS.md](docs/DECISIONS.md) | Decision log (D1–D21) |
 | [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) | Phases and build plan |
 
-## Demo accounts
-
-All accounts use the password **`password123`**. The login page also has one-click buttons for each account.
-
-| User | Email | Seeded data |
-|---|---|---|
-| Alice | `alice@ajaia.test` | Owns *Welcome to Ajaia Docs*, shared with Bob as **editor** |
-| Bob | `bob@ajaia.test` | Sees the welcome doc under **Shared with me** |
-| Carol | `carol@ajaia.test` | No documents. Use her to test sharing as a **viewer** |
-
-**Suggested review flow:** log in as Alice → create a document and format it (headings, lists, colors, table) → *Share* it with `carol@ajaia.test` as **Viewer** → open the same document as Carol in a private window. You'll see the view-only banner, live presence avatars, and that she can comment but not edit.
-
-## Features
-
-| Area | What works |
-|---|---|
-| Documents | Create, rename inline, delete (owner), autosave (1 s debounce) with a save-status indicator, reopen with formatting preserved |
-| Formatting | Bold, italic, underline, H1–H3, bulleted/numbered lists, **text color**, **highlight color**, **tables** (insert, add/remove rows and columns), undo/redo |
-| File import | **`.txt`, `.md`, `.docx` up to 2 MB** become a new editable document. Uses backend-issued signed upload URLs and server-side content sniffing |
-| Sharing | Owner shares by email as **Viewer** (read + comment) or **Editor** (edit). Change role or revoke. Dashboard splits *My documents* / *Shared with me* |
-| Concurrency | Optimistic locking: a stale save returns `409`, and the UI shows *Conflict: Reload*. Edits are never silently overwritten |
-| Presence | Live avatars of who is viewing or editing (Supabase Realtime) |
-| Comments | Comments anchored to selected text, replies, resolve/reopen |
-| Version history | Automatic snapshots (max 1 per 5 min) plus manual *Save version*, preview, **non-destructive restore** |
-| Export | Markdown download; PDF via a print stylesheet (selectable text) |
-
-**Supported upload types:** `.txt`, `.md`, `.docx`, maximum 2 MB. Other types are rejected, and the limits are shown in the import dialog.
-
-## Tech stack
-
-Next.js 15 (App Router, TypeScript strict) · Tailwind CSS · TipTap v3 · Drizzle ORM · Supabase (Postgres, Storage, Realtime) · zod · jose · bcryptjs · Vitest + PGlite · Vercel
-
-Architecture, priorities and trade-offs: [`ARCHITECTURE.md`](ARCHITECTURE.md). How AI was used: [`AI_WORKFLOW.md`](AI_WORKFLOW.md).
-
-## Run locally
+## 🚀 Run locally
 
 **Prerequisites:** Node.js 20+ and a free Supabase project.
 
@@ -90,7 +126,7 @@ where id = 'document-uploads';
 
 No storage policies are needed. Uploads are authorized by short-lived signed tokens issued by the server.
 
-## Scripts
+## 📜 Scripts
 
 | Command | Purpose |
 |---|---|
@@ -100,7 +136,7 @@ No storage policies are needed. Uploads are authorized by short-lived signed tok
 | `npm run typecheck` / `lint` | `tsc --noEmit` / ESLint |
 | `npm run db:generate` / `db:migrate` / `db:seed` | Versioned migrations / apply / seed |
 
-## Tests
+## 🧪 Tests
 
 ```bash
 npm test     # 80 tests in 14 files, ~10 s, no external services needed
@@ -109,7 +145,7 @@ npm test     # 80 tests in 14 files, ~10 s, no external services needed
 - **Unit tests:** access-policy permission matrix, request validators, upload content sniffing (magic bytes, UTF-8, NUL, size), Markdown/TipTap converters, session tokens.
 - **Integration tests:** each service runs against **PGlite** (in-memory Postgres) with the project's real migrations. Covered: documents (optimistic locking, roles), sharing, upload import (with fake storage), versions, comments, and auth.
 
-## Project structure
+## 🗂️ Project structure
 
 ```
 src/
@@ -128,6 +164,12 @@ src/
 tests/{unit,integration,helpers}
 ```
 
-## Deployment
+## ☁️ Deployment
 
-The app is deployed on **Vercel** (free tier) with **Supabase** (free tier), so reviewers don't need to pay for anything. Merges to `main` deploy automatically. Set the same env vars in Vercel → Project → Settings → Environment Variables.
+The app is deployed on **Vercel** (free tier) with **Supabase** (free tier), so reviewers don't need to pay for anything. Production deploys run with `vercel deploy --prod`. Set the same env vars in Vercel → Project → Settings → Environment Variables.
+
+## ⚠️ Known limitations
+
+- **Presence, not simultaneous co-editing.** Two people typing at once get a conflict prompt rather than a merge (next step: Yjs CRDT).
+- **PDF** uses the browser print dialog. **Markdown export** drops colours and underline.
+- No signup or password reset; demo users are seeded.
