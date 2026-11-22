@@ -6,6 +6,7 @@
  */
 import { generateHTML } from "@tiptap/html";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { getEditorExtensions } from "@/components/editor/extensions";
 import type { DocumentDetail, DocumentVersionDto, EditorContent } from "@/types/domain";
 import { api, ApiClientError } from "@/utils/api-client";
@@ -100,6 +101,14 @@ export function VersionHistoryButton({ documentId, canRestore, currentVersion, o
     }
   }, [selected]);
 
+  // Esc closes the drawer.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <>
       <button
@@ -110,8 +119,10 @@ export function VersionHistoryButton({ documentId, canRestore, currentVersion, o
         History
       </button>
 
-      {open && (
-        <div className="no-print fixed inset-0 z-40 flex justify-end" role="presentation">
+      {/* Portal to <body>: the sticky header creates a stacking context that let the
+          editor toolbar paint over the drawer (and block "Save version"). */}
+      {open && createPortal(
+        <div className="no-print fixed inset-0 z-50 flex justify-end" role="presentation">
           <div className="absolute inset-0 bg-slate-900/30" onClick={() => setOpen(false)} />
           <aside
             role="dialog"
@@ -211,7 +222,8 @@ export function VersionHistoryButton({ documentId, canRestore, currentVersion, o
               </section>
             )}
           </aside>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
