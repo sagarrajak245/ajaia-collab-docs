@@ -1,5 +1,7 @@
 # AI Workflow Note
 
+📁 **Submission folder (Google Drive):** https://drive.google.com/drive/folders/1uFfBWV8q8dpkNJbHU6JwdIiHPnIpoan6?usp=sharing · 🌐 **Live:** https://ajaia-collab-docs-eight.vercel.app
+
 > **In one line:** I owned the product and architecture decisions and the quality bar. AI was my fast pair-programmer for typing, scaffolding and parallel builds. **Nothing merged until the compiler, the tests and a real run agreed.**
 
 Full decision log with dates and reasons: [`docs/DECISIONS.md`](docs/DECISIONS.md).

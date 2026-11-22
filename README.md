@@ -13,7 +13,7 @@
 ![Tests](https://img.shields.io/badge/tests-80%20passing-brightgreen)
 ![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000000?logo=vercel&logoColor=white)
 
-[**▶ Try it live**](https://ajaia-collab-docs-eight.vercel.app) · [How it works](#-how-it-works) · [Run locally](#-run-locally) · [Architecture](ARCHITECTURE.md) · [AI workflow](AI_WORKFLOW.md)
+[**▶ Try it live**](https://ajaia-collab-docs-eight.vercel.app) · [📁 Submission folder (Google Drive)](https://drive.google.com/drive/folders/1uFfBWV8q8dpkNJbHU6JwdIiHPnIpoan6?usp=sharing) · [How it works](#-how-it-works) · [Run locally](#-run-locally) · [Architecture](ARCHITECTURE.md) · [AI workflow](AI_WORKFLOW.md)
 
 </div>
 

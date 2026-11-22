@@ -8,6 +8,7 @@
 |---|---|
 | 🌐 **Live product** | **https://ajaia-collab-docs-eight.vercel.app** |
 | 💻 **Source** | https://github.com/sagarrajak245/ajaia-collab-docs |
+| 📁 **Google Drive folder** | https://drive.google.com/drive/folders/1uFfBWV8q8dpkNJbHU6JwdIiHPnIpoan6?usp=sharing |
 | 🎥 **Walkthrough video** | see [`VIDEO_URL.txt`](VIDEO_URL.txt) |
 
 </div>
