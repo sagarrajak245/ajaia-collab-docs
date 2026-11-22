@@ -109,7 +109,7 @@ export function Toolbar({ editor }: { editor: Editor }) {
     <div
       role="toolbar"
       aria-label="Formatting"
-      className="no-print sticky top-0 z-20 flex flex-wrap items-center gap-0.5 border-b border-slate-200 bg-white px-3 py-1.5 shadow-sm"
+      className="no-print sticky top-0 z-20 flex flex-wrap items-center gap-0.5 border-b border-slate-200 bg-surface px-3 py-1.5 shadow-sm"
     >
       <Btn label="Undo" disabled={!s.canUndo} onClick={() => run().undo().run()}>↶</Btn>
       <Btn label="Redo" disabled={!s.canRedo} onClick={() => run().redo().run()}>↷</Btn>

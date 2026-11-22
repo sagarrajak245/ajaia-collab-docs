@@ -79,7 +79,7 @@ export function ShareButton({ documentId, isOwner }: { documentId: string; isOwn
   const remove = (s: DocumentShareDto) =>
     run(() => api(`/api/documents/${documentId}/shares/${s.id}`, { method: "DELETE" }));
 
-  const selectCls = "rounded-md border border-slate-300 bg-white px-2 py-1 text-sm";
+  const selectCls = "rounded-md border border-slate-300 bg-surface px-2 py-1 text-sm";
 
   return (
     <>
@@ -103,7 +103,7 @@ export function ShareButton({ documentId, isOwner }: { documentId: string; isOwn
             role="dialog"
             aria-modal="true"
             aria-labelledby="share-title"
-            className="w-full max-w-md rounded-lg bg-white p-5 shadow-xl"
+            className="w-full max-w-md rounded-lg bg-surface p-5 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex items-center justify-between">

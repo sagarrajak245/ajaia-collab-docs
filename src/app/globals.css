@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #EDE8D0; /* beige canvas */
+  --surface: #F8F5EA;    /* cards, header, dialogs */
+  --paper: #FFFDF7;      /* the document page */
   --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-canvas: var(--background);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* Light theme only: the editor "paper" is always white, so dark mode would be inconsistent. */
+/* Light theme only: beige canvas, cream surfaces, off-white paper. */
 body {
   background: var(--background);
   color: var(--foreground);
