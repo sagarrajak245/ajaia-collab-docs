@@ -2,7 +2,7 @@
 
 A focused, Google-Docs-inspired editor: create and format documents, import files, share them with viewer/editor roles, and collaborate with presence, comments, version history and export.
 
-**Live app:** https://ajaia-collab-docs.vercel.app
+**Live app:** https://ajaia-collab-docs-eight.vercel.app
 **Repository:** https://github.com/sagarrajak245/ajaia-collab-docs
 
 ## Demo accounts
