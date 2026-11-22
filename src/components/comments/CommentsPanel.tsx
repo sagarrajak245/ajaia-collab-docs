@@ -187,7 +187,7 @@ export function CommentsPanel({ documentId, editor, canEdit, currentUserId, isOw
   );
 
   return (
-    <aside className="no-print flex w-80 shrink-0 flex-col gap-3 overflow-y-auto border-l bg-white p-3" aria-label="Comments">
+    <aside className="no-print flex w-80 shrink-0 flex-col gap-3 overflow-y-auto border-l bg-surface p-3" aria-label="Comments">
       <style>{ANCHOR_CSS}</style>
       <h2 className="text-sm font-semibold">Comments</h2>
 

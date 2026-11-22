@@ -48,7 +48,7 @@ function LoginForm() {
         <p className="mt-1 text-sm text-slate-500">Sign in to your workspace</p>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <form onSubmit={onSubmit} className="space-y-4 rounded-xl border border-slate-200 bg-surface p-6 shadow-sm">
         <label className="block">
           <span className="text-sm font-medium text-slate-700">Email</span>
           <input
@@ -98,7 +98,7 @@ function LoginForm() {
                 setEmail(a.email);
                 setPassword(DEMO_PASSWORD);
               }}
-              className="flex-1 rounded-md border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+              className="flex-1 rounded-md border border-slate-200 bg-surface px-2 py-1.5 text-sm text-slate-700 hover:bg-canvas"
             >
               {a.name}
             </button>
@@ -111,7 +111,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+    <main className="flex min-h-screen items-center justify-center bg-canvas px-4">
       <Suspense>
         <LoginForm />
       </Suspense>

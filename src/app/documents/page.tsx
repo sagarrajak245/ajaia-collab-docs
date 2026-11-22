@@ -67,8 +67,8 @@ export default function DocumentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="min-h-screen bg-canvas">
+      <header className="border-b border-slate-200 bg-surface">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <span className="text-lg font-semibold text-slate-900">Ajaia Docs</span>
           <div className="flex flex-wrap items-center gap-3">
@@ -129,11 +129,11 @@ function Section({ title, empty, children }: { title: string; empty: string; chi
     <section aria-label={title}>
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{title}</h2>
       {children.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-8 text-center text-sm text-slate-500">
+        <p className="rounded-xl border border-dashed border-slate-300 bg-surface px-4 py-8 text-center text-sm text-slate-500">
           {empty}
         </p>
       ) : (
-        <ul className="divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <ul className="divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200 bg-surface shadow-sm">
           {children}
         </ul>
       )}
@@ -143,7 +143,7 @@ function Section({ title, empty, children }: { title: string; empty: string; chi
 
 function Row({ doc, showOwner, onDelete }: { doc: DocumentSummary; showOwner?: boolean; onDelete?: () => void }) {
   return (
-    <li className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50">
+    <li className="flex items-center gap-3 px-4 py-3 hover:bg-canvas">
       <Link href={`/documents/${doc.id}`} className="min-w-0 flex-1">
         <p className="truncate font-medium text-slate-900">{doc.title || "Untitled"}</p>
         <p className="text-xs text-slate-500">

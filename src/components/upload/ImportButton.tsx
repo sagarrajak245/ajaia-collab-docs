@@ -89,7 +89,7 @@ export function ImportButton() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        className="rounded-md border border-slate-300 bg-surface px-3 py-2 text-sm font-medium text-slate-700 hover:bg-canvas"
       >
         Import
       </button>
@@ -103,7 +103,7 @@ export function ImportButton() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="import-title"
-            className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl"
+            className="w-full max-w-md rounded-lg bg-surface p-6 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 id="import-title" className="text-lg font-semibold text-slate-900">
