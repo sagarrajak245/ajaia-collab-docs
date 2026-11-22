@@ -14,6 +14,8 @@ import { UploadRepository } from "@/server/repositories/upload.repository";
 import { UploadService } from "@/server/services/upload.service";
 import { VersionRepository } from "@/server/repositories/version.repository";
 import { VersionService } from "@/server/services/version.service";
+import { CommentRepository } from "@/server/repositories/comment.repository";
+import { CommentService } from "@/server/services/comment.service";
 import { UserRepository } from "@/server/repositories/user.repository";
 import { AuthService } from "@/server/services/auth.service";
 import { DocumentService } from "@/server/services/document.service";
@@ -33,5 +35,6 @@ export function getContainer() {
     shareService: new ShareService(new ShareRepository(db), userRepository, documentService),
     uploadService: new UploadService(new UploadRepository(db), documentService, createSupabaseStorage()),
     versionService: new VersionService(new VersionRepository(db), documentRepository, documentService),
+    commentService: new CommentService(new CommentRepository(db), documentService),
   };
 }
