@@ -6,6 +6,7 @@ import StarterKit from "@tiptap/starter-kit"; // includes headings, lists, bold/
 import { TextStyle, Color } from "@tiptap/extension-text-style";
 import Highlight from "@tiptap/extension-highlight";
 import { Table, TableRow, TableHeader, TableCell } from "@tiptap/extension-table";
+import { CommentMark } from "./comment-mark";
 
 export function getEditorExtensions() {
   return [
@@ -17,5 +18,6 @@ export function getEditorExtensions() {
     TableRow,
     TableHeader,
     TableCell,
+    CommentMark,
   ];
 }
