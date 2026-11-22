@@ -56,7 +56,7 @@ flowchart LR
     UI -- "① ask for signed URL" --> API
     UI -- "② PUT file bytes directly" --> ST
     SVC -- "③ download + sniff bytes" --> ST
-    PR <-- "WebSocket" --> RT
+    PR <-->|WebSocket| RT
     AS --> UI
 ```
 
@@ -130,11 +130,36 @@ erDiagram
     comments ||--o{ comments : "replies (1 level)"
     users ||--o{ uploads : uploads
 
-    documents { uuid id PK; uuid owner_id FK; text title; jsonb content; int version; timestamptz last_snapshot_at }
-    document_shares { uuid document_id FK; uuid user_id FK; enum role "viewer|editor" }
-    document_versions { uuid document_id FK; int version; jsonb content }
-    comments { uuid document_id FK; text anchor_id; text quote; uuid parent_id; bool resolved }
-    uploads { uuid user_id FK; text path; enum status "pending|imported|rejected" }
+    documents {
+        uuid id PK
+        uuid owner_id FK
+        text title
+        jsonb content
+        int version
+        timestamptz last_snapshot_at
+    }
+    document_shares {
+        uuid document_id FK
+        uuid user_id FK
+        enum role "viewer|editor"
+    }
+    document_versions {
+        uuid document_id FK
+        int version
+        jsonb content
+    }
+    comments {
+        uuid document_id FK
+        text anchor_id
+        text quote
+        uuid parent_id
+        bool resolved
+    }
+    uploads {
+        uuid user_id FK
+        text path
+        enum status "pending|imported|rejected"
+    }
 ```
 
 - Schema changes go **only through versioned Drizzle migrations**.
