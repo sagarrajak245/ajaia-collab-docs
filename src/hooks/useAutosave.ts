@@ -115,5 +115,7 @@ export function useAutosave({ initialVersion, save, debounceMs = 1000 }: Options
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, []);
 
-  return { status, schedule, flush, retry };
+  /** Latest server version (needed by actions such as version restore). */
+  const getVersion = useCallback(() => versionRef.current, []);
+  return { status, schedule, flush, retry, getVersion };
 }
