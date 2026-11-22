@@ -29,7 +29,7 @@ export function RichTextEditor({ initialContent, editable, onChange, onReady }: 
     <>
       {/* Viewers get no toolbar at all */}
       {editable && editor && <Toolbar editor={editor} />}
-      <div className="print-canvas flex-1 bg-slate-100 px-2 py-6 sm:px-4 sm:py-8">
+      <div className="print-canvas flex-1 bg-canvas px-2 py-6 sm:px-4 sm:py-8">
         <div className="print-page mx-auto min-h-[1056px] w-full max-w-[816px] bg-paper px-6 py-10 shadow-md sm:px-[72px] sm:py-[72px]">
           <EditorContent editor={editor} />
         </div>
