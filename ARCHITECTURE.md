@@ -1,5 +1,7 @@
 # Architecture Note
 
+📁 **Submission folder (Google Drive):** https://drive.google.com/drive/folders/1uFfBWV8q8dpkNJbHU6JwdIiHPnIpoan6?usp=sharing · 🌐 **Live:** https://ajaia-collab-docs-eight.vercel.app
+
 > **Ajaia Docs** is a Google-Docs-style editor: create, format, import, share, comment, version and export documents.
 > **Next.js 15 (TypeScript) · Drizzle ORM · Supabase (Postgres, Storage, Realtime) · Vercel**
 
