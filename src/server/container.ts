@@ -8,9 +8,11 @@
 import "server-only";
 import { getDb } from "@/server/db/client";
 import { DocumentRepository } from "@/server/repositories/document.repository";
+import { ShareRepository } from "@/server/repositories/share.repository";
 import { UserRepository } from "@/server/repositories/user.repository";
 import { AuthService } from "@/server/services/auth.service";
 import { DocumentService } from "@/server/services/document.service";
+import { ShareService } from "@/server/services/share.service";
 
 export function getContainer() {
   const db = getDb();
@@ -23,5 +25,6 @@ export function getContainer() {
     documentRepository,
     authService: new AuthService(userRepository),
     documentService,
+    shareService: new ShareService(new ShareRepository(db), userRepository, documentService),
   };
 }
