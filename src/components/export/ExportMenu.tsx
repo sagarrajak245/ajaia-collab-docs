@@ -39,7 +39,7 @@ export function ExportMenu({ documentId }: { documentId: string; title: string }
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-20 mt-1 w-48 rounded-md border border-slate-200 bg-white py-1 shadow-lg"
+          className="absolute right-0 z-20 mt-1 w-48 rounded-md border border-slate-200 bg-surface py-1 shadow-lg"
         >
           {/* Plain anchor: the route replies with Content-Disposition: attachment. */}
           <a

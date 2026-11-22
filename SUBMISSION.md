@@ -23,9 +23,9 @@ The login page has one-click buttons for each account. To test sharing, use a se
 | Setup and run instructions | `README.md` |
 | Architecture note (priorities, design, trade-offs) | `ARCHITECTURE.md` |
 | AI workflow note | `AI_WORKFLOW.md` |
-| Requirements (functional and non-functional) | `REQUIREMENTS.md` |
-| Decision log (who decided what, and why) | `DECISIONS.md` |
-| Build plan | `BUILD_PLAN.md` |
+| Requirements (functional and non-functional) | [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) |
+| Decision log (who decided what, and why) | [`docs/DECISIONS.md`](docs/DECISIONS.md) |
+| Build plan | [`docs/BUILD_PLAN.md`](docs/BUILD_PLAN.md) |
 | Walkthrough video URL | `VIDEO_URL.txt` |
 | Environment template | `.env.example` |
 | Database migrations and seed | `src/server/db/migrations/`, `src/server/db/seed.ts` |

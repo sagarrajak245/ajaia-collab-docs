@@ -5,6 +5,17 @@ A focused, Google-Docs-inspired editor: create and format documents, import file
 **Live app:** https://ajaia-collab-docs-eight.vercel.app
 **Repository:** https://github.com/sagarrajak245/ajaia-collab-docs
 
+## Documentation
+
+| Doc | What's inside |
+|---|---|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Diagrams, layers, API contract, data model, key flows, trade-offs |
+| [AI_WORKFLOW.md](AI_WORKFLOW.md) | What I decided vs. what AI proposed, what I rejected, how I verified |
+| [SUBMISSION.md](SUBMISSION.md) | Submission checklist and status |
+| [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) | Functional and non-functional requirements |
+| [docs/DECISIONS.md](docs/DECISIONS.md) | Decision log (D1–D21) |
+| [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) | Phases and build plan |
+
 ## Demo accounts
 
 All accounts use the password **`password123`**. The login page also has one-click buttons for each account.

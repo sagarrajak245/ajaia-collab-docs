@@ -117,7 +117,7 @@ export function VersionHistoryButton({ documentId, canRestore, currentVersion, o
             role="dialog"
             aria-modal="true"
             aria-label="Version history"
-            className="relative flex h-full w-full max-w-md flex-col bg-white shadow-xl"
+            className="relative flex h-full w-full max-w-md flex-col bg-surface shadow-xl"
           >
             <header className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
               <h2 className="text-base font-semibold text-slate-900">Version history</h2>
