@@ -8,7 +8,10 @@
 import "server-only";
 import { getDb } from "@/server/db/client";
 import { DocumentRepository } from "@/server/repositories/document.repository";
+import { createSupabaseStorage } from "@/server/lib/storage";
 import { ShareRepository } from "@/server/repositories/share.repository";
+import { UploadRepository } from "@/server/repositories/upload.repository";
+import { UploadService } from "@/server/services/upload.service";
 import { UserRepository } from "@/server/repositories/user.repository";
 import { AuthService } from "@/server/services/auth.service";
 import { DocumentService } from "@/server/services/document.service";
@@ -26,5 +29,6 @@ export function getContainer() {
     authService: new AuthService(userRepository),
     documentService,
     shareService: new ShareService(new ShareRepository(db), userRepository, documentService),
+    uploadService: new UploadService(new UploadRepository(db), documentService, createSupabaseStorage()),
   };
 }
