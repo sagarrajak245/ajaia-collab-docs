@@ -1,0 +1,15 @@
+/**
+ * Password hashing with bcrypt (cost 10). bcryptjs is pure JS, so it works on
+ * any serverless runtime without native builds.
+ */
+import bcrypt from "bcryptjs";
+
+const COST = 10;
+
+export function hashPassword(plain: string): Promise<string> {
+  return bcrypt.hash(plain, COST);
+}
+
+export function verifyPassword(plain: string, hash: string): Promise<boolean> {
+  return bcrypt.compare(plain, hash);
+}
